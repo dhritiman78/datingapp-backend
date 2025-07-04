@@ -14,6 +14,7 @@ def ping():
     return {"status": "Service is Available"}
 
 app.include_router(user_router, prefix='/user', tags=['User'])
+app.include_router(user_router, prefix='/data', tags=['User'])
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
