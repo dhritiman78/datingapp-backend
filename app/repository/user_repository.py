@@ -62,15 +62,32 @@ async def enter_user_details_into_DB(registerData: registerRequest, user: dict[s
     return await with_db_connection(run)
 
 
+from fastapi import HTTPException, status
+
 # Get user details
-# async def get_user_details(user_id: str):
-#     query = """
-#         SELECT * FROM get_user_details_by_uuid($1::TEXT);
-#     """
-#     async def run(conn):
-#         try:
-#             return await conn.fetchrow(query, user_id)
-#         except Exception as e:
-#             raise Exception(f"Failed to get the user: {str(e)}")
-#
-#     return await with_db_connection(run)
+async def get_user_details(user_id: str):
+    query = """
+        SELECT * FROM tuda.get_user_profile($1);
+    """
+    async def run(conn):
+        try:
+            results = await conn.fetchrow(query, user_id)
+
+            if not results:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="No user with that uid is available."
+                )
+
+            return results
+
+        except HTTPException:
+            # Let HTTPException bubble up (don't wrap it in another exception)
+            raise
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to get the user: {str(e)}"
+            )
+
+    return await with_db_connection(run)
