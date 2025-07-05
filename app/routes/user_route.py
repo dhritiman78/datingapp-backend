@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, BackgroundTasks
 
-from app.controllers.user_controller import ping_controller, register_controller
+from app.controllers.user_controller import ping_controller, register_controller, get_user_controller
 from app.models.user_model import registerRequest
 from app.repository.user_repository import get_user_details
 from app.service.dependencies import verify_token
@@ -24,4 +24,4 @@ async def register_route(
 async def get_profile(
         user: dict[str, str] = Depends(verify_token)
 ):
-    return await get_user_details(user['uid'])
+    return await get_user_controller(user)
