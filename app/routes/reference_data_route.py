@@ -1,10 +1,17 @@
-from fastapi import APIRouter, Depends
-
-from app.repository.reference_data_repository import get_schools
-from app.service.dependencies import verify_token
+from fastapi import APIRouter
+from app.controllers.reference_data_controller import get_school_controller, get_branch_controller, \
+    get_programme_controller
 
 router = APIRouter()
 
-@router.post('/schools', dependencies=[Depends(verify_token)], status_code=200)
-async def register_route():
-    return await get_schools()
+@router.get('/schools', status_code=200)
+async def school_route():
+    return await get_school_controller()
+
+@router.get('/departments', status_code=200)
+async def department_route():
+    return await get_branch_controller()
+
+@router.get('/programmes', status_code=200)
+async def programme_route():
+    return await get_programme_controller()

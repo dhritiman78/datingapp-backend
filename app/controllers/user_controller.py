@@ -2,7 +2,7 @@ from fastapi import BackgroundTasks
 
 from app.models.user_model import registerRequest
 from app.service.email_service import send_registration_confirmation
-from app.service.user_service import insert_user_service
+from app.service.user_service import insert_user_service, get_user_service
 
 
 async def ping_controller():
@@ -15,3 +15,6 @@ async def register_controller(register_data: registerRequest, background_tasks: 
     background_tasks.add_task(send_registration_confirmation, user["email"])
 
     return result
+
+async def get_user_controller(user: dict[str, str]):
+    return await get_user_service(user["uid"])

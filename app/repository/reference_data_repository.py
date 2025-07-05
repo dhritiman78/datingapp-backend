@@ -9,15 +9,44 @@ async def with_db_connection(callback):
     async with pool.acquire() as conn:
         return await callback(conn)
 
-# Get user details
 async def get_schools():
     query = """
-        SELECT * FROM tuda.school_reference;
+         SELECT * FROM tuda.school_reference;
     """
     async def run(conn):
         try:
-            return await conn.fetchrow(query)
+            return await conn.fetch(query)
         except Exception as e:
-            raise Exception(f"Failed to get schools: {str(e)}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to get schools: {str(e)}"
+            )
+    return await with_db_connection(run)
 
+async def get_branches():
+    query = """
+         SELECT * FROM tuda.department_reference;
+    """
+    async def run(conn):
+        try:
+            return await conn.fetch(query)
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to get departments: {str(e)}"
+            )
+    return await with_db_connection(run)
+
+async def get_programmes():
+    query = """
+         SELECT * FROM tuda.programme_reference;
+    """
+    async def run(conn):
+        try:
+            return await conn.fetch(query)
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to get programmes: {str(e)}"
+            )
     return await with_db_connection(run)

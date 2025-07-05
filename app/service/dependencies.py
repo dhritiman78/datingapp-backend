@@ -21,3 +21,8 @@ async def verify_token(authorization: Optional[str] = Header(None)):
         "email": decoded_token.get("email"),
         "name": decoded_token.get("name", ""),
     }
+    # return {
+    #     "uid": "Hn96nz6u8yRabmYAJj9dhot04gk1",
+    #     "email": "psydriteofficial@gmail.com",
+    #     "name": "PsydriteStudios",
+    # }
