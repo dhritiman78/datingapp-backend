@@ -1,3 +1,5 @@
+import os
+
 import uvicorn
 from fastapi import FastAPI
 from dotenv import load_dotenv
@@ -13,5 +15,7 @@ def ping():
 
 app.include_router(routesV1, prefix='/api/v1', tags=['v1.0.0'])
 
+port = int(os.getenv("PORT", 7860))
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=port)

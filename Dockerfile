@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./app ./app
 
 # Expose the port your app runs on
-EXPOSE 8000
+EXPOSE 7860
 
 # Command to run the FastAPI server
 CMD ["python", "-m", "app.main"]
