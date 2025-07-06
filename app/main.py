@@ -1,10 +1,7 @@
-import os
-
 import uvicorn
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from app.routes.user_route import router as user_router
-from app.routes.reference_data_route import router as ref_router
+from app.routes.v1.routes import router as routesV1
 
 load_dotenv()
 
@@ -14,8 +11,7 @@ app = FastAPI()
 def ping():
     return {"status": "Service is Available"}
 
-app.include_router(user_router, prefix='/user', tags=['User'])
-app.include_router(ref_router, prefix='', tags=['Reference'])
+app.include_router(routesV1, prefix='/api/v1', tags=['v1.0.0'])
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

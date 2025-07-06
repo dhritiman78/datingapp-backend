@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.controllers.reference_data_controller import get_school_controller, get_branch_controller, \
+from app.controllers.v1.reference_data_controller import get_school_controller, get_branch_controller, \
     get_programme_controller
 
 router = APIRouter()

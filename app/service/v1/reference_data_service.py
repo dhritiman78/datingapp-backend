@@ -1,7 +1,7 @@
 import json
 
 from app.database.redis import redis_client
-from app.repository.reference_data_repository import get_schools, get_branches, get_programmes
+from app.repository.v1.reference_data_repository import get_schools, get_branches, get_programmes
 
 
 async def get_school_service():

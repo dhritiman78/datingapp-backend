@@ -1,8 +1,8 @@
 from fastapi import BackgroundTasks
 
 from app.models.user_model import registerRequest
-from app.service.email_service import send_registration_confirmation
-from app.service.user_service import insert_user_service, get_user_service
+from app.service.v1.email_service import send_registration_confirmation
+from app.service.v1.user_service import insert_user_service, get_user_service
 
 
 async def ping_controller():

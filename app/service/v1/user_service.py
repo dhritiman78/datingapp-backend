@@ -2,7 +2,7 @@ import json
 
 from app.database.redis import redis_client
 from app.models.user_model import registerRequest
-from app.repository.user_repository import enter_user_details_into_DB, get_user_details
+from app.repository.v1.user_repository import enter_user_details_into_DB, get_user_details
 
 
 async def insert_user_service(registerData: registerRequest, user: dict[str, str]):

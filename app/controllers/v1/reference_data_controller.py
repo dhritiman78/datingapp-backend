@@ -1,4 +1,4 @@
-from app.service.reference_data_service import get_school_service, get_branch_service, get_programme_service
+from app.service.v1.reference_data_service import get_school_service, get_branch_service, get_programme_service
 
 
 async def get_school_controller():
