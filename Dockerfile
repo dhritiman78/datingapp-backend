@@ -15,4 +15,4 @@ COPY ./app ./app
 EXPOSE 8000
 
 # Command to run the FastAPI server
-CMD ["python", "app/main.py"]
+CMD ["python", "-m", "app.main"]
