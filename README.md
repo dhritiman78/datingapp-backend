@@ -1,3 +1,11 @@
-# Dating App API (FastAPI)
+---
+title: Api Tu Dating App
+emoji: 👁
+colorFrom: red
+colorTo: green
+sdk: docker
+pinned: false
+short_description: Api for TU Dating app
+---
 
-This is a FastAPI backend for a dating app deployed on Hugging Face Spaces.
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
