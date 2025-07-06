@@ -1,6 +1,3 @@
-# DatingApp-backend
+# Dating App API (FastAPI)
 
- source venv/bin/activate
- uvicorn main:app --reload
-
- - API router
+This is a FastAPI backend for a dating app deployed on Hugging Face Spaces.
