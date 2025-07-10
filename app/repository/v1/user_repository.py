@@ -14,7 +14,7 @@ async def enter_user_details_into_DB(registerData: registerRequest, user: dict[s
     insert_query = """
         SELECT tuda.insert_new_user(
             $1, $2, $3, $4, $5,
-            $6, $7, $8, $9, $10, $11, $12
+            $6, $7, $8, $9, $10, $11, $12, $13, $14
         );
     """
 
@@ -33,7 +33,9 @@ async def enter_user_details_into_DB(registerData: registerRequest, user: dict[s
                 registerData.school_id,          # $9
                 registerData.programme_id,       #10
                 registerData.department_id,      #11
-                registerData.interests or []     #12
+                registerData.personality,       #12
+                registerData.looking_for,       #13
+                registerData.interests or []     #14
             )
 
             if not result:
@@ -67,7 +69,7 @@ from fastapi import HTTPException, status
 # Get user details
 async def get_user_details(user_id: str):
     query = """
-        SELECT * FROM tuda.get_user_profile($1);
+         SELECT * FROM tuda.get_user_profile($1);
     """
     async def run(conn):
         try:

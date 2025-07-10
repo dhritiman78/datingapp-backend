@@ -19,7 +19,9 @@ class registerRequest(BaseModel):
     school_id: Optional[int] = None  # Made optional as per FastAPI's UserCreate and DB
     programme_id: Optional[int] = None  # Renamed from p_programme_id, made optional
     department_id: Optional[int] = None  # Made optional
-    interests: Optional[List[str]] = []  #
+    interests: Optional[List[int]] = []  #
+    personality: Optional[str] = None
+    looking_for: Optional[int] = None
 
 class loginRequest(BaseModel):
     email: str
