@@ -23,6 +23,23 @@ class registerRequest(BaseModel):
     personality: Optional[str] = None
     looking_for: Optional[int] = None
 
+class UpdateRequest(BaseModel):
+    name: Optional[str] = None
+    gender: Optional[GenderEnum] = None
+    dateOfBirth: Optional[date] = None
+    bio: Optional[str] = None
+    preferred_gender: Optional[GenderEnum] = None
+    school_id: Optional[int] = None
+    programme_id: Optional[int] = None
+    department_id: Optional[int] = None
+    interests: Optional[List[int]] = None
+    personality: Optional[str] = None
+    looking_for: Optional[int] = None
+
 class loginRequest(BaseModel):
     email: str
     password: str
+
+class CustomUserRequest(BaseModel):
+    user_id: str
+    fields: List[str]

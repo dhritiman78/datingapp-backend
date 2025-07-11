@@ -5,3 +5,7 @@ asyncpg==0.30.0
 pydantic[email]
 firebase-admin
 redis
+python-multipart
+boto3
+pillow
+tinify
