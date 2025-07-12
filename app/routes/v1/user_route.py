@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, BackgroundTasks, UploadFile, File, Form,
 
 from app.controllers.v1.user_controller import ping_controller, register_controller, get_user_controller, \
     update_profile_controller, get_user_selected_details_controller
+from app.database.redis import redis_client
 from app.models.user_model import registerRequest, UpdateRequest, CustomUserRequest
 from app.service.v1.dependencies import verify_token
 
@@ -45,3 +46,15 @@ async def get_profile(
 @router.post("/custom")
 async def get_custom_user_data(requests: CustomUserRequest):
     return await get_user_selected_details_controller(requests.user_id,requests.fields)
+
+@router.get("/redis/clear")
+async def clear_user_redis():
+    cursor = b'0'
+    pattern = "user_*"
+
+    while cursor:
+        cursor, keys = await redis_client.scan(cursor=cursor, match=pattern, count=100)
+        if keys:
+            await redis_client.delete(*keys)
+
+    return {"message": "User Redis keys cleared successfully"}
