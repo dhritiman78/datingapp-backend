@@ -1,7 +1,6 @@
 import asyncpg
 from fastapi import HTTPException, status
 from app.database.pg_db import get_db_connection
-from app.models.user_model import registerRequest
 
 # Reusable DB connection handler
 async def with_db_connection(callback):
