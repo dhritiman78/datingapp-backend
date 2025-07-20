@@ -3,10 +3,9 @@ from io import BytesIO
 from typing import Optional, List
 
 from fastapi import HTTPException
-from requests import delete
 
 from app.database.redis import redis_client
-from app.models.user_model import registerRequest, UpdateRequest
+from app.models.v1.user_model import registerRequest, UpdateRequest
 from app.repository.v1.user_repository import enter_user_details_into_DB, get_user_details, update_profile_repository, \
     get_user_selected_fields
 from app.utils.r2 import upload_to_r2, delete_from_r2

@@ -29,3 +29,8 @@ async def get_db_connection():
     if not db_pool:
         await connect_to_db()
     return db_pool
+
+async def with_db_connection(callback):
+    pool = await get_db_connection()
+    async with pool.acquire() as conn:
+        return await callback(conn)

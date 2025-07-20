@@ -1,12 +1,12 @@
 import json
-from typing import Optional, List
+from typing import Optional
 
 from fastapi import APIRouter, Depends, BackgroundTasks, UploadFile, File, Form, HTTPException
 
 from app.controllers.v1.user_controller import ping_controller, register_controller, get_user_controller, \
     update_profile_controller, get_user_selected_details_controller
 from app.database.redis import redis_client
-from app.models.user_model import registerRequest, UpdateRequest, CustomUserRequest
+from app.models.v1.user_model import registerRequest, UpdateRequest, CustomUserRequest
 from app.service.v1.dependencies import verify_token
 
 router = APIRouter()

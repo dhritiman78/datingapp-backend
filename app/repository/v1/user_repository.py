@@ -3,7 +3,7 @@ from typing import Optional, List
 import asyncpg
 from fastapi import HTTPException, status
 from app.database.pg_db import get_db_connection
-from app.models.user_model import registerRequest, UpdateRequest
+from app.models.v1.user_model import registerRequest, UpdateRequest
 
 
 # Reusable DB connection handler

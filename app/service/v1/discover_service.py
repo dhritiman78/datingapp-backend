@@ -3,7 +3,6 @@ from typing import Optional, List
 
 from fastapi import HTTPException
 
-from app.models.discover_model import UserCustomFields
 from app.repository.v1.discover_repository import fetch_user_custom_fields
 
 

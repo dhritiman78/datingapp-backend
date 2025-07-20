@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from fastapi import BackgroundTasks, UploadFile
 from datetime import datetime
-from app.models.user_model import registerRequest, UpdateRequest
+from app.models.v1.user_model import registerRequest, UpdateRequest
 from app.service.v1.email_service import send_registration_confirmation
 from app.service.v1.user_service import insert_user_service, get_user_service, update_profile_service, \
     get_user_selected_fields_service
