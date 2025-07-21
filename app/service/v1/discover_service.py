@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from fastapi import HTTPException
 
-from app.repository.v1.discover_repository import fetch_user_custom_fields
+from app.repository.v1.discover_repository import fetch_user_custom_fields, fetch_random_users_for_match
 
 
 async def get_user_custom_data(
@@ -29,3 +29,6 @@ async def get_user_custom_data(
         return user_data_dict
 
     return None
+
+async def get_random_users_for_match_service(user_uid: str):
+    return await fetch_random_users_for_match(user_uid)

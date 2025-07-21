@@ -60,3 +60,24 @@ async def fetch_user_custom_fields(
             )
 
     return await with_db_connection(run)
+
+async def fetch_random_users_for_match(
+        user_uid: Optional[str]
+    ):
+    query = """
+               select * from tuda.get_random_recommendation($1)
+           """
+
+    async def run(conn):
+        try:
+            return await conn.fetch(
+                query,
+                user_uid
+            )
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to get users: {str(e)}"
+            )
+
+    return await with_db_connection(run)
