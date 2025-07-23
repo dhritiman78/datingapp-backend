@@ -15,4 +15,6 @@ if not firebase_admin._apps:
     cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
 
     cred = credentials.Certificate(cred_dict)
-    firebase_admin.initialize_app(cred)
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': os.environ["FIREBASE_DB_URL"]
+    })

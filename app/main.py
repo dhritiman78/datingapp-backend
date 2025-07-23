@@ -3,11 +3,14 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from dotenv import load_dotenv
+from starlette.middleware.gzip import GZipMiddleware
+
 from app.routes.v1.routes import router as routesV1
 
 load_dotenv()
 
 app = FastAPI()
+app.add_middleware(GZipMiddleware, minimum_size=100)
 
 @app.get("/")
 def ping():

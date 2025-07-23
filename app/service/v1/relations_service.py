@@ -1,6 +1,9 @@
+import asyncio
 import json
+import traceback
 
 from fastapi import HTTPException
+from firebase_admin import db
 
 from app.repository.v1.relations_repository import fetch_user_relations, set_user_relations
 
@@ -27,16 +30,39 @@ async def get_user_relations_service(ref_user: str, target_user: str):
             detail=f"Unexpected error: {str(e)}"
         )
 
+# ✅ Background task to push matches to Firebase
+async def save_matches_to_firebase(ref_user: str, matched_users: list):
+    try:
+        ref = db.reference("usermatches")
+        for uid in matched_users:
+            try:
+                ref.push({
+                    "user1": ref_user,
+                    "user2": uid
+                })
+            except Exception as inner_error:
+                print(f"❌ Error pushing match for {ref_user} ↔ {uid}: {inner_error}")
+                traceback.print_exc()
+
+    except Exception as outer_error:
+        print("❌ Firebase push task failed:", outer_error)
+        traceback.print_exc()
+
+
 async def set_user_relations_service(ref_user: str, likes, swipes, blocks, unblocks):
     try:
         result = await set_user_relations(ref_user, likes, swipes, blocks, unblocks)
 
-        # asyncpg should return it as dict; but if it's still a JSON string, decode
-        if isinstance(result, (dict, list)):
-            return result
+        if not isinstance(result, (dict, list)):
+            result = json.loads(result)
 
-        import json
-        return json.loads(result)
+        matched = result.get("matched", [])
+
+        # ✅ Run Firebase match saving in background
+        if matched:
+            asyncio.create_task(save_matches_to_firebase(ref_user, matched))
+
+        return result
 
     except Exception as e:
         raise HTTPException(
