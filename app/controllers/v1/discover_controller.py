@@ -21,15 +21,9 @@ async def get_user_data_by_id_or_uid_controller(
                 "name": "Kanchanor Logori User",
                 "avataar": "",
                 "bio": "",
-                "dateofbirth": "1970-01-01",
+                "dateofbirth": "2025-01-01",
                 "looking_for": 0,
                 "interests": [],
-                "school_name": "",
-                "school_code": "",
-                "programme_name": "",
-                "programme_code": "",
-                "department_name": "",
-                "department_code": "",
             })
 
         result = {**user_data, **user_relations}
