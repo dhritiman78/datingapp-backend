@@ -20,11 +20,8 @@ async def get_user_data_by_id_or_uid_controller(
             user_data.update({
                 "name": "Kanchanor Logori User",
                 "avataar": "",
-                "email": "",
                 "bio": "",
-                "gender": "",
                 "dateofbirth": "1970-01-01",
-                "preferred_gender": "",
                 "personality": "",
                 "looking_for": "",
                 "interests": [],
