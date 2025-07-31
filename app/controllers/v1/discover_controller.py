@@ -14,6 +14,28 @@ async def get_user_data_by_id_or_uid_controller(
     if user_uid and not  fields:
         user_data = await get_user_service(user_uid)
         user_relations = await get_user_relations_service(refUid,user_uid)
+
+        if user_relations.get("is_blocked"):
+            # Replace or blank out all sensitive info
+            user_data.update({
+                "name": "Kanchanor Logori User",
+                "avataar": "",
+                "email": "",
+                "bio": "",
+                "gender": "",
+                "dateofbirth": "1970-01-01",
+                "preferred_gender": "",
+                "personality": "",
+                "looking_for": "",
+                "interests": [],
+                "school_name": "",
+                "school_code": "",
+                "programme_name": "",
+                "programme_code": "",
+                "department_name": "",
+                "department_code": "",
+            })
+
         result = {**user_data, **user_relations}
         return result
 
