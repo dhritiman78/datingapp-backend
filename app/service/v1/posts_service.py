@@ -1,0 +1,18 @@
+from io import BytesIO
+
+from fastapi import UploadFile, HTTPException
+
+from app.repository.v1.posts_repository import upload_user_post
+from app.utils.r2 import upload_to_r2
+
+
+async def upload_posts_service (user_uid: str, picture: str, caption: str, buffer: BytesIO):
+    try:
+        await upload_to_r2(buffer, picture)
+
+        await upload_user_post(user_uid, picture, caption)
+
+        return {"message": "Successfully posted"}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
