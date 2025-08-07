@@ -16,7 +16,7 @@ async def verify_token(authorization: Optional[str] = Header(None)):
     token = authorization.split(" ")[1]
 
     # Try Redis
-    cached_user = await redis_client.get(f"token_{token}")
+    cached_user = await redis_client.get(f"token/{token}")
     if cached_user:
         return json.loads(cached_user)
 

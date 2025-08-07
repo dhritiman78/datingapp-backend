@@ -38,7 +38,7 @@ async def update_profile_service(user_id: str, update_data: Optional[UpdateReque
         raise HTTPException(status_code=500, detail=str(e))
 
 async def get_user_service(uid: str):
-    cached_key = f'user_{uid}'
+    cached_key = f'user/{uid}'
 
     # Try from Redis cache
     cached = await redis_client.get(cached_key)
