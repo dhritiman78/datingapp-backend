@@ -38,6 +38,3 @@ def send_registration_confirmation(receiver: str):
     """
 
     send_email(receiver, subject, html_body)
-
-# def send_registration_confirmation(receiver: str):
-#     return receiver

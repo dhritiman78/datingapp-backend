@@ -15,7 +15,7 @@ async def insert_user_service(registerData: registerRequest, user: dict[str, str
    return await enter_user_details_into_DB(registerData,user)
 
 async def update_profile_service(user_id: str, update_data: Optional[UpdateRequest], filename: Optional[str], buffer: Optional[BytesIO]):
-    cached_key = f'user_{user_id}'
+    cached_key = f'user/{user_id}'
     try:
         # Upload to R2 if avatar is present
         if filename and buffer:
