@@ -33,6 +33,6 @@ async def verify_token(authorization: Optional[str] = Header(None)):
 
     ttl = decoded_token.get("exp", 0) - decoded_token.get("iat", 0)
     if ttl > 0:
-        await redis_client.set(f"token_{token}", json.dumps(user_data), ex=ttl)
+        await redis_client.set(f"token/{token}", json.dumps(user_data), ex=ttl)
 
     return user_data
