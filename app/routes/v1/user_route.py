@@ -50,7 +50,7 @@ async def get_custom_user_data(requests: CustomUserRequest):
 @router.get("/redis/clear")
 async def clear_user_redis():
     cursor = b'0'
-    pattern = "user_*"
+    pattern = "user/*"
 
     while cursor:
         cursor, keys = await redis_client.scan(cursor=cursor, match=pattern, count=100)
