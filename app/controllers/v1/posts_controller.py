@@ -3,7 +3,8 @@ from typing import Optional
 
 from fastapi import UploadFile
 
-from app.service.v1.posts_service import upload_posts_service, get_posts_service
+from app.service.v1.posts_service import upload_posts_service, get_posts_service, delete_user_post_service, \
+    get_feed_service
 from app.service.v1.relations_service import get_user_relations_service
 from app.utils.compress_image import compress_image
 
@@ -24,3 +25,9 @@ async def get_user_posts_controllers(user_uid: str, target_uid: Optional[str]):
         return await get_posts_service(target_uid)
 
     return await get_posts_service(user_uid)
+
+async def delete_user_post_controller(user_uid: str, post_id: int):
+    return await delete_user_post_service(user_uid, post_id)
+
+async def get_user_feed_posts(user_uid: str, page_no: int):
+    return await get_feed_service(user_uid,page_no)
