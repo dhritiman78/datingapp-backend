@@ -73,3 +73,35 @@ async def get_feed_service(user_id: str, page_no: int):
             raise
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Failed to fetch posts: {str(e)}")
+
+
+async def delete_all_posts_service(user_uid: str):
+    try:
+        # 1. Fetch all posts
+        posts = await get_posts_service(user_uid)
+
+        if not posts:
+            return {"message": "No posts found for this user", "deleted_count": 0}
+
+        deleted_count = 0
+
+        # 2. Delete images from R2
+        for post in posts:
+            key = post.get("picture")  # the key stored in DB
+
+            if key:
+                success = await delete_from_r2(key)
+                if success:
+                    deleted_count += 1
+
+        # 4. Clear redis cache
+        await redis_client.delete(f"posts/{user_uid}")
+
+        return {
+            "message": "All posts deleted successfully",
+            "deleted_images": deleted_count,
+            "total_posts": len(posts)
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

@@ -102,3 +102,4 @@ async def fetch_user_feed(uid: str, page_no: int):
             )
 
     return await with_db_connection(run)
+

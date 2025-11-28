@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends
 
-from app.models.v1.admin_model import AdminUidRequest
+from app.controllers.v1.admin_controller import delete_user_controller
+from app.models.v1.admin_model import AdminDeleteRequest
 
 router = APIRouter()
 
-@router.delete('/delete/posts', status_code=200)
+@router.delete('/delete/user', status_code=200)
 async def search_route(
-        user_uid: AdminUidRequest
+        admin_delete: AdminDeleteRequest
 ):
-    return user_uid
+    return await delete_user_controller(admin_delete.uid,admin_delete.key)

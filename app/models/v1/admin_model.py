@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
 
-class AdminUidRequest(BaseModel):
+class AdminDeleteRequest(BaseModel):
     uid: str
+    key: str

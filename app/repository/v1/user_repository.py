@@ -165,3 +165,24 @@ async def get_user_selected_fields(user_id: str, fields: List[str]) -> Optional[
     row = await with_db_connection(run)
     return dict(row) if row else None
 
+# Delete user from DB
+async def delete_user_repository(uuid: str):
+    query = """
+        DELETE FROM tuda.users
+        WHERE uid = $1
+        RETURNING uid;
+    """
+
+    async def run(conn):
+        try:
+            result = await conn.fetchrow(query, uuid)
+            return True if result else False
+
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Database error while deleting user: {str(e)}"
+            )
+
+    return await with_db_connection(run)
+
